@@ -1,0 +1,61 @@
+html
+  head
+  body
+    script(src="http://code.angularjs.org/1.4.0/angular.min.js")
+    script.
+      angular.module('syrupOrderApp', [])
+      .controller('syrupController', 
+                  ['$scope', syrupController])
+  
+      function syrupController($scope) {
+        $scope.flavors = [
+          {name:"Blue Raspberry", sku:"REDACTED1"},
+          {name:"Cherry", sku:"REDACTED2"},
+          {sku:"REDACTED3", name:"Grape"},
+          {sku:"REDACTED4", name:"Lemon"},
+          {sku:"REDACTED5", name:"Lime"},
+          {sku:"REDACTED6", name:"Strawberry"},
+          {sku:"REDACTED7", name:"Red Raspberry"},
+          {sku:"REDACTED8", name:"Bubble Gum"},
+          {sku:"REDACTED9", name:"Green Apple"},
+          {sku:"REDACTED10", name:"Root Beer"},
+          {sku:"REDACTED11", name:"Orange"},
+          {sku:"REDACTED12", name:"Fuzzy Navel"}
+        ]
+        $scope.flavor1 = $scope.flavors[6]
+        $scope.flavor2 = $scope.flavors[0]
+        $scope.flavor3 = $scope.flavors[1]
+        $scope.flavor4 = $scope.flavors[2]
+        $scope.wantPumps = true
+      }
+  
+    div(ng-app="syrupOrderApp", ng-controller="syrupController")
+      h1 Syrup Order Email Maker
+      h2 Flavors:
+      select(ng-model="flavor1",ng-options="flavor.name for flavor in flavors")
+      br
+      select(ng-model="flavor2",ng-options="flavor.name for flavor in flavors")
+      br
+      select(ng-model="flavor3",ng-options="flavor.name for flavor in flavors")
+      br
+      select(ng-model="flavor4",ng-options="flavor.name for flavor in flavors")
+      br 
+      h2 Include Pumps?
+      input(type="checkbox", ng-model="wantPumps")
+      span Yes, Include 4 Syrup Pumps
+      br 
+      h2 Shipping Address:
+      textarea(rows="6",cols="50",ng-model="shipTo")
+      p --------------------------------------------------------------------------
+      p(style='white-space:pre;') Company Name: REDACTED
+        | Dealer Account #: REDACTED
+      p(style='white-space:pre;') Item: Snow Cone Syrup - 1 Case containing the following 4 flavors:
+        | Flavors: {{flavor1.name}}, {{flavor2.name}}, {{flavor3.name}}, &amp; {{flavor4.name}}
+        | SKU: {{flavor1.sku}}, {{flavor2.sku}}, {{flavor3.sku}}, &amp; {{flavor4.sku}}
+        | Quantity: 1 case with 4 jugs
+      div(ng-show="wantPumps")
+        p(style='white-space:pre;') Item: Pump for Snow Cone Syrup
+          | SKU: REDACTED
+          | Quantity: 4
+      p(style='white-space:pre;') Ship To:
+        | {{shipTo}}
